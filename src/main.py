@@ -98,6 +98,21 @@ def game_over():
     canvas.delete(ALL)
     canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2,
                        font=('consolas',70), text="GAME OVER", fill="red", tag="gameover")
+    canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2 + 100,
+                          font=('consolas',30), text="Final Score: {}".format(score), fill="white", tag="score")
+    canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2 + 150,
+                            font=('consolas',20), text="Press 'R' to Restart", fill="white", tag="restart")
+    canvas.bind_all('<r>', restart_game)
+
+def restart_game(event):
+    global score, direction
+    score = 0
+    direction = 'down'
+    label.config(text="Score: {}".format(score))
+    canvas.delete(ALL)
+    snake = Snake()
+    food = Food()
+    next_turn(snake, food)
 
 
 window = Tk()
